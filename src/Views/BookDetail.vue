@@ -90,7 +90,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import axios from 'axios';
+
 import apiClient from '../services/apiService'
 import { useUserStore } from '../stores/userStore';
 
@@ -143,7 +143,7 @@ async function handleBorrowBook() {
     ngayTra.setDate(ngayTra.getDate() + 7);
 
     // 4. Gọi API
-    await axios.post('http://localhost:5000/api/borrows', {
+    await apiClient.post('http://localhost:5000/api/borrows', {
       borrowerId,
       onModel,
       bookId,
