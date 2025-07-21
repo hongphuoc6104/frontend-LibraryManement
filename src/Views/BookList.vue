@@ -1,65 +1,126 @@
-<!-- src/views/BookList.vue -->
 <template>
-    <div class="max-w-6xl mx-auto px-4 py-8">
-      <h1 class="text-2xl font-semibold mb-6 text-blue-700">Danh sách sách</h1>
-  
-      <!-- Search Bar -->
-      <div class="flex mb-8">
+  <div class="max-w-7xl mx-auto px-4 py-8 md:py-12 animate-fade-in-up">
+    <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-2 text-center relative">
+      <span class="relative z-10">Thư Viện Sách</span>
+      <span class="absolute bottom-[-8px] left-1/2 -translate-x-1/2 w-20 h-1 bg-gray-800 rounded-full z-0"></span>
+    </h1>
+    <p class="text-lg text-gray-600 text-center mb-10">Khám phá bộ sưu tập sách đa dạng của chúng tôi.</p>
+
+    <div class="mb-12 max-w-2xl mx-auto">
+      <div class="flex items-center bg-white rounded-full shadow-lg border border-gray-200 p-2 group focus-within:ring-2 focus-within:ring-gray-300 transition-all duration-300">
         <input
           v-model="search"
           type="text"
           placeholder="Tìm sách theo tiêu đề hoặc tác giả..."
-          class="flex-1 border rounded-l px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          class="flex-1 bg-transparent px-5 py-3 text-gray-800 placeholder-gray-500 focus:outline-none text-lg"
+          @keyup.enter="fetchBooks"
         />
         <button
           @click="fetchBooks"
-          class="bg-blue-500 text-white px-4 py-2 rounded-r hover:bg-blue-600 transition"
+          class="bg-gray-800 text-white p-3.5 rounded-full hover:bg-gray-700 transition-all duration-300 transform group-hover:scale-105 active:scale-95 shadow-md flex items-center justify-center"
         >
-          Tìm kiếm
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
         </button>
       </div>
-  
-      <!-- Grid sách -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        <BookCard
-          v-for="book in books"
-          :key="book.id"
-          :book="book"
-        />
-      </div>
     </div>
-  </template>
-  
-  <script setup>
-  import { ref, computed, onMounted } from 'vue'
-  import BookCard from '../components/BookCard.vue'
-  import axios from 'axios'
-  
-  const books = ref([])
-  // const search = ref('')
-  
 
-  const fetchBooks = async () => {
-    try{
-      const res = await axios.get('http://localhost:5000/api/books')
-      books.value = res.data
-    } catch (err) {
-      console.err('Lỗi khi tải sách', err)
-    }
+    <div v-if="isLoading" class="text-center text-gray-500 py-10">
+      <p class="text-xl mb-4">Đang tải danh sách sách...</p>
+      <svg class="animate-spin h-8 w-8 text-gray-500 mx-auto" viewBox="0 0 24 24">
+        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+      </svg>
+    </div>
+    <div v-else-if="filteredBooks.length === 0" class="text-center text-gray-700 py-10">
+      <p class="text-xl font-medium mb-4">Không tìm thấy sách nào phù hợp.</p>
+      <p class="text-gray-500">Hãy thử từ khóa khác hoặc kiểm tra lại.</p>
+    </div>
+    
+    <div v-else class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-10 animate-staggered-fade-in">
+      <BookCard
+        v-for="(book, index) in filteredBooks"
+        :key="book._id"
+        :book="book"
+        :style="{ animationDelay: `${index * 0.05}s` }"
+        class="animate-item-fade-in"
+      />
+    </div>
+
+  </div>
+</template>
+  
+<script setup>
+import { ref, computed, onMounted } from 'vue';
+import BookCard from '../components/BookCard.vue';
+import axios from 'axios';
+import { useRoute } from 'vue-router'; // Import useRoute to get query params
+
+const books = ref([]);
+const search = ref('');
+const isLoading = ref(true); // Add loading state
+
+const route = useRoute(); // Initialize useRoute
+
+// --- DATA FETCHING ---
+async function fetchBooks() {
+  isLoading.value = true; // Set loading to true before fetching
+  try {
+    const res = await axios.get('http://localhost:5000/api/books');
+    books.value = res.data;
+  } catch (err) {
+    console.error('Lỗi khi tải sách:', err);
+  } finally {
+    isLoading.value = false; // Set loading to false after fetching (success or failure)
   }
-
+}
 
 onMounted(() => {
-  fetchBooks()
-})
-  
-  // const filteredBooks = computed(() => {
-  //   if (!search.value) return books.value
-  //   const q = search.value.toLowerCase()
-  //   return books.value.filter(b =>
-  //     b.tensach.toLowerCase().includes(q) ||
-  //     b.tacgia.toLowerCase().includes(q)
-  //   )
-  // })
-  </script>
-  
+  // Check if there's a search query from the URL (e.g., from Home page search)
+  if (route.query.q) {
+    search.value = route.query.q;
+  }
+  fetchBooks();
+});
+
+// --- SEARCH LOGIC ---
+const filteredBooks = computed(() => {
+  if (!search.value) {
+    return books.value;
+  }
+  const query = search.value.toLowerCase();
+  return books.value.filter(book =>
+    book.tenSach.toLowerCase().includes(query) ||
+    book.tacGia.toLowerCase().includes(query)
+  );
+});
+</script>
+
+<style>
+/* Base animations (defined in Home.vue, can be moved to a shared CSS file if preferred) */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-up {
+  animation: fadeInUp 0.5s ease-out forwards;
+}
+
+/* Staggered animation for BookCard items */
+@keyframes itemFadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-item-fade-in {
+  opacity: 0; /* Start hidden */
+  animation: itemFadeIn 0.6s ease-out forwards;
+}
+
+/* No specific animation for animate-staggered-fade-in, it's a container class for delay */
+/* This class ensures that individual items get their animation-delay property */
+.animate-staggered-fade-in {
+  /* This ensures the animation is applied but delayed on each child */
+}
+</style>
