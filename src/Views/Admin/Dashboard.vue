@@ -1,13 +1,10 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import axios from 'axios';
+import apiClient from '../../services/apiService'
 import { useUserStore } from "../../stores/userStore";
 
 const userStore = useUserStore(); // Dùng để chào mừng admin
 
-const apiClient = axios.create({
-  baseURL: 'http://localhost:5000/api',
-});
 
 // --- STATE ---
 const loading = ref(true);

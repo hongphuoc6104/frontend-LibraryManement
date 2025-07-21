@@ -54,7 +54,8 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import BookCard from '../components/BookCard.vue';
-import axios from 'axios';
+
+import apiClient from '../services/apiService'
 import { useRoute } from 'vue-router'; // Import useRoute to get query params
 
 const books = ref([]);
@@ -67,7 +68,7 @@ const route = useRoute(); // Initialize useRoute
 async function fetchBooks() {
   isLoading.value = true; // Set loading to true before fetching
   try {
-    const res = await axios.get('http://localhost:5000/api/books');
+    const res = await apiClient.get('/books');
     books.value = res.data;
   } catch (err) {
     console.error('Lỗi khi tải sách:', err);

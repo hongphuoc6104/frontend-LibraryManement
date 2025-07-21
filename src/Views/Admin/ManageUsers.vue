@@ -129,7 +129,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue';
-import axios from 'axios';
+import apiClient from '../../services/apiService'
 import { useUserStore } from '../../stores/userStore'
 
 const userStore = useUserStore();
@@ -149,7 +149,7 @@ const staffForm = ref({
   soDienThoai: ''
 });
 
-const apiClient = axios.create({ baseURL: 'http://localhost:5000/api' });
+
 
 // --- DATA FETCHING ---
 async function fetchData() {

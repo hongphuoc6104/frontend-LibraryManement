@@ -75,7 +75,7 @@
 
 <script setup>
 import { ref } from 'vue';
-import axios from 'axios';
+import apiClient from '../services/apiService'
 import { useUserStore } from "../stores/userStore";
 
 const userStore = useUserStore();
@@ -86,7 +86,7 @@ const error = ref('');
 const handleLogin = async () => {
   error.value = '';
   try {
-    const res = await axios.post('http://localhost:5000/api/account/login', {
+    const res = await apiClient.post('/account/login', {
       email: email.value,
       password: password.value
     });

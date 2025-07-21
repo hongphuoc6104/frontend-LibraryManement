@@ -38,7 +38,3 @@ defineProps({
   book: Object
 });
 </script>
-
-<style scoped>
-/* No custom styles needed. All handled by Tailwind CSS classes. */
-</style>

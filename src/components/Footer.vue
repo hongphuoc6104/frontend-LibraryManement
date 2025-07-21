@@ -51,6 +51,3 @@
   </footer>
 </template>
 
-<script setup>
-// Không cần logic cho footer này
-</script>

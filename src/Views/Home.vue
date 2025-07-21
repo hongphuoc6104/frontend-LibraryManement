@@ -154,7 +154,7 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue';
-import axios from 'axios';
+import apiClient from '../services/apiService'
 import { useRouter } from 'vue-router';
 import BookCard from '../components/BookCard.vue';
 import { useUserStore } from '../stores/userStore';
@@ -178,7 +178,7 @@ const isAboutSection2Visible = ref(false);
 
 const fetchFeaturedBooks = async () => {
   try {
-    const res = await axios.get('http://localhost:5000/api/books');
+    const res = await apiClient.get('/books');
     featuredBooks.value = res.data.slice(0, 8); 
   } catch (err) {
     console.error('Lỗi khi tải sách nổi bật:', err);

@@ -1,12 +1,12 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue';
-import axios from 'axios';
+import apiClient from '../../services/apiService'
 
 const borrows = ref([]);
 const searchTerm = ref('');
 const filterStatus = ref('Tất cả');
 
-const apiClient = axios.create({ baseURL: 'http://localhost:5000/api' });
+
 
 async function fetchData() {
   try {

@@ -175,7 +175,7 @@
 
 <script setup>
 import { ref, onMounted, computed } from 'vue';
-import axios from 'axios';
+import apiClient from '../../services/apiService'
 
 // --- STATE MANAGEMENT ---
 const activeTab = ref('books');
@@ -205,7 +205,7 @@ const publisherForm = ref({
   diaChi: ''
 });
 
-const apiClient = axios.create({ baseURL: 'http://localhost:5000/api' });
+
 
 // --- DATA FETCHING ---
 async function fetchData() {

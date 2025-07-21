@@ -57,15 +57,14 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import axios from 'axios'
-
+import apiClient from '../services/apiService'
 const defaultImg = 'https://th.bing.com/th/id/OIP.10sq7MYhXknhpLcEvDY11QHaHa?w=206&h=206&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3'
 const borrows = ref([])
 const userId = localStorage.getItem('userId') // Đảm bảo userId được lấy chính xác
 
 async function fetchBorrows() {
   try {
-    const res = await axios.get(`http://localhost:5000/api/borrows/me/${userId}`)
+    const res = await apiClient.get(`/borrows/me/${userId}`)
     borrows.value = res.data
   } catch (err) {
     console.error('Lỗi khi lấy lịch sử mượn:', err)

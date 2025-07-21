@@ -91,6 +91,7 @@
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import axios from 'axios';
+import apiClient from '../services/apiService'
 import { useUserStore } from '../stores/userStore';
 
 // --- KHỞI TẠO ---
@@ -107,7 +108,7 @@ const isBorrowing = ref(false);
 onMounted(async () => {
   const maSach = route.params.maSach;
   try {
-    const res = await axios.get(`http://localhost:5000/api/books/masach/${maSach}`);
+    const res = await apiClient.get(`/books/masach/${maSach}`);
     book.value = res.data;
   } catch (err) {
     console.error('Lỗi khi lấy chi tiết sách:', err);

@@ -110,7 +110,7 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import axios from 'axios';
+import apiClient from '../services/apiService'
 
 // State để quản lý các bước
 const step = ref(1);
@@ -192,7 +192,7 @@ const handleRegister = async () => {
   message.value = 'Đang xử lý...';
 
   try {
-    const userRes = await axios.post('http://localhost:5000/api/users', {
+    const userRes = await apiClient.post('/users', {
       hoLot: hoLot.value,
       ten: ten.value,
       ngaySinh: ngaySinh.value,
@@ -202,7 +202,7 @@ const handleRegister = async () => {
 
     const refId = userRes.data._id;
 
-    await axios.post('http://localhost:5000/api/account/register', {
+    await apiClient.post('/account/register', {
       email: email.value,
       password: password.value,
       role: 'user',
