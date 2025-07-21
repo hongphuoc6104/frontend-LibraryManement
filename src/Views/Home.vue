@@ -142,7 +142,7 @@
         <p class="text-lg text-gray-700 leading-relaxed mb-8">
           Trải nghiệm đọc sách tiện lợi trên mọi thiết bị của bạn. Với giao diện thân thiện và tính năng đồng bộ, bạn có thể tiếp tục hành trình tri thức của mình dù ở nhà, trên đường, hay bất cứ đâu.
         </p>
-        <router-link to="/register" class="inline-flex items-center bg-gray-800 text-white px-8 py-3 rounded-full font-semibold hover:bg-gray-700 transition-all duration-300 shadow-md">
+        <router-link to="/auth/register" class="inline-flex items-center bg-gray-800 text-white px-8 py-3 rounded-full font-semibold hover:bg-gray-700 transition-all duration-300 shadow-md">
           Đăng Ký Miễn Phí
           <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM12 14c-1.478 0-2.923.473-4.204 1.334L4 18l1.397-2.794C6.205 14.887 7.55 14 9 14h6c1.45 0 2.795.887 3.603 2.206L20 18l-3.796-2.666C14.923 14.473 13.478 14 12 14z"></path></svg>
         </router-link>
