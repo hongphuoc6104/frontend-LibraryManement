@@ -142,7 +142,7 @@ function formatDate(dateString) {
             </table>
           </div>
           <div v-else class="text-center py-8 text-slate-500">
-            <p>🎉 Không có sách nào bị quá hạn.</p>
+            <p> Không có sách nào bị quá hạn.</p>
           </div>
         </div>
 
@@ -165,7 +165,7 @@ function formatDate(dateString) {
             </table>
           </div>
           <div v-else class="text-center py-8 text-slate-500">
-            <p>✅ Không có sách nào bị hết.</p>
+            <p> Không có sách nào bị hết.</p>
           </div>
         </div>
       </div>
