@@ -143,7 +143,7 @@ async function handleBorrowBook() {
     ngayTra.setDate(ngayTra.getDate() + 7);
 
     // 4. Gọi API
-    await apiClient.post('http://localhost:5000/api/borrows', {
+    await apiClient.post('/borrows', {
       borrowerId,
       onModel,
       bookId,
