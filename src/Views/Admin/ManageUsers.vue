@@ -1,129 +1,128 @@
 <template>
-  <div class="p-4 md:p-8">
-    <h1 class="text-3xl font-bold text-gray-800 mb-6">Quản lý Người dùng</h1>
+  <div>
+    <div class="mb-8">
+      <h1 class="text-3xl font-bold text-slate-800">Quản lý Người dùng</h1>
+      <p class="mt-1 text-slate-500">Quản lý tài khoản độc giả và nhân viên trong hệ thống.</p>
+    </div>
 
-    <div class="border-b border-gray-200 mb-6">
-      <nav class="flex space-x-4">
+    <div class="border-b border-slate-200">
+      <nav class="-mb-px flex space-x-6">
         <button 
           @click="activeTab = 'users'" 
-          :class="['py-2 px-4 font-semibold rounded-t-lg', activeTab === 'users' ? 'bg-blue-600 text-white' : 'text-gray-500 hover:bg-gray-200']">
-          👥 Quản lý Độc giả
+          :class="['py-4 px-1 border-b-2 font-medium text-sm', activeTab === 'users' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300']">
+          Độc giả
         </button>
         <button 
           @click="activeTab = 'staff'" 
-          :class="['py-2 px-4 font-semibold rounded-t-lg', activeTab === 'staff' ? 'bg-blue-600 text-white' : 'text-gray-500 hover:bg-gray-200']">
-          👨‍💼 Quản lý Nhân viên (Admin)
+          :class="['py-4 px-1 border-b-2 font-medium text-sm', activeTab === 'staff' ? 'border-indigo-500 text-indigo-600' : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300']">
+          Nhân viên & Admin
         </button>
       </nav>
     </div>
 
-    <div v-if="activeTab === 'users'">
-      <div class="bg-white p-6 rounded-lg shadow-md overflow-x-auto">
-        <table class="w-full text-left">
-          <thead>
-            <tr class="border-b bg-gray-50">
-              <th class="p-4">Họ và Tên</th>
-              <th class="p-4">Điện thoại</th>
-              <th class="p-4">Hành động</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="user in users" :key="user._id" class="border-b hover:bg-gray-50">
-              <td class="p-4">{{ user.hoLot }} {{ user.ten }}</td>
-              <td class="p-4">{{ user.dienThoai }}</td>
-              <td class="p-4">
-                <button @click="deleteUser(user._id, `${user.hoLot} ${user.ten}`)" class="p-1 text-red-500 rounded-full hover:bg-red-100 hover:text-red-700 transition" title="Xóa">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+    <div class="mt-6">
+      <div v-if="activeTab === 'users'">
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left">
+              <thead class="bg-slate-50">
+                <tr class="border-b border-slate-200">
+                  <th class="p-4 text-sm font-semibold text-slate-600">Họ và Tên</th>
+                  <th class="p-4 text-sm font-semibold text-slate-600">Điện thoại</th>
+                  <th class="p-4 text-sm font-semibold text-slate-600">Hành động</th>
+                </tr>
+              </thead>
+              <tbody class="text-slate-700">
+                <tr v-for="user in users" :key="user._id" class="border-b border-slate-200 hover:bg-slate-50 transition-colors">
+                  <td class="p-4 font-medium">{{ user.hoLot }} {{ user.ten }}</td>
+                  <td class="p-4">{{ user.dienThoai }}</td>
+                  <td class="p-4">
+                    <button @click="deleteUser(user._id, `${user.hoLot} ${user.ten}`)" class="p-1.5 text-red-500 rounded-full hover:bg-red-100 hover:text-red-700 transition" title="Xóa">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div v-if="activeTab === 'staff'">
+        <div class="flex justify-end mb-4">
+          <button @click="openStaffModal()" class="flex items-center justify-center gap-2 bg-indigo-600 text-white px-5 py-3 rounded-lg shadow font-semibold hover:bg-indigo-700 transition">
+             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6m0 0v6m0-6h6m-6 0H6" /></svg>
+            <span>Thêm Admin mới</span>
+          </button>
+        </div>
+        <div class="bg-white rounded-xl shadow-md overflow-hidden">
+          <div class="overflow-x-auto">
+            <table class="w-full text-left">
+              <thead class="bg-slate-50">
+                <tr class="border-b border-slate-200">
+                  <th class="p-4 text-sm font-semibold text-slate-600">Họ và Tên</th>
+                  <th class="p-4 text-sm font-semibold text-slate-600">Chức vụ</th>
+                  <th class="p-4 text-sm font-semibold text-slate-600">Điện thoại</th>
+                  <th class="p-4 text-sm font-semibold text-slate-600">Hành động</th>
+                </tr>
+              </thead>
+              <tbody class="text-slate-700">
+                <tr v-for="person in staff" :key="person._id" class="border-b border-slate-200 hover:bg-slate-50 transition-colors">
+                  <td class="p-4 font-medium">{{ person.hoTenNV }}</td>
+                  <td class="p-4">{{ person.chucVu }}</td>
+                  <td class="p-4">{{ person.soDienThoai }}</td>
+                  <td class="p-4 space-x-2 flex items-center">
+                    <button @click="openStaffModal(person)" class="p-1.5 text-yellow-500 rounded-full hover:bg-yellow-100 hover:text-yellow-700 transition" title="Sửa">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.5L15.232 5.232z" /></svg>
+                    </button>
+                    <button v-if="person._id !== userStore.userId" @click="deleteStaff(person._id, person.hoTenNV)" class="p-1.5 text-red-500 rounded-full hover:bg-red-100 hover:text-red-700 transition" title="Xóa">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div v-if="activeTab === 'staff'">
-      <div class="flex justify-end mb-4">
-        <button @click="openStaffModal()" class="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition">
-          + Thêm Admin mới
-        </button>
-      </div>
-      <div class="bg-white p-6 rounded-lg shadow-md overflow-x-auto">
-        <table class="w-full text-left">
-          <thead>
-            <tr class="border-b bg-gray-50">
-              <th class="p-4">Họ và Tên</th>
-              <th class="p-4">Chức vụ</th>
-              <th class="p-4">Điện thoại</th>
-              <th class="p-4">Hành động</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="person in staff" :key="person._id" class="border-b hover:bg-gray-50">
-              <td class="p-4">{{ person.hoTenNV }}</td>
-              <td class="p-4">{{ person.chucVu }}</td>
-              <td class="p-4">{{ person.soDienThoai }}</td>
-              <td class="p-4 space-x-2 flex items-center">
-                 <button @click="openStaffModal(person)" class="p-1 text-yellow-500 rounded-full hover:bg-yellow-100 hover:text-yellow-700 transition" title="Sửa">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.5L15.232 5.232z" />
-                    </svg>
-                 </button>
-                <button 
-                    v-if="userStore.userId && person._id && userStore.userId !== person._id" 
-                    @click="deleteStaff(person._id, person.hoTenNV)" 
-                    class="p-1 text-red-500 rounded-full hover:bg-red-100 hover:text-red-700 transition" 
-                    title="Xóa"
-                >
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <div v-if="showStaffModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div class="bg-white p-8 rounded-lg shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
-        <h2 class="text-2xl font-bold mb-6">{{ editingStaff ? 'Chỉnh sửa Nhân viên' : 'Thêm Admin mới' }}</h2>
-        <form @submit.prevent="saveStaff">
-          <div class="space-y-4">
-            <div>
-              <label class="block mb-1 font-medium">Họ tên nhân viên</label>
-              <input v-model="staffForm.hoTenNV" type="text" required class="w-full p-2 border rounded"/>
-            </div>
-             <div>
-              <label class="block mb-1 font-medium">Chức vụ</label>
-              <input v-model="staffForm.chucVu" type="text" required class="w-full p-2 border rounded"/>
-            </div>
-            <div v-if="!editingStaff">
-              <label class="block mb-1 font-medium">Email</label>
-              <input v-model="staffForm.email" type="email" :required="!editingStaff" class="w-full p-2 border rounded"/>
-            </div>
-             <div v-if="!editingStaff">
-              <label class="block mb-1 font-medium">Mật khẩu</label>
-              <input v-model="staffForm.password" type="password" :required="!editingStaff" class="w-full p-2 border rounded"/>
-            </div>
-            <div>
-              <label class="block mb-1 font-medium">Địa chỉ</label>
-              <input v-model="staffForm.diaChi" type="text" class="w-full p-2 border rounded"/>
-            </div>
-            <div>
-              <label class="block mb-1 font-medium">Số điện thoại</label>
-              <input v-model="staffForm.soDienThoai" type="text" class="w-full p-2 border rounded"/>
-            </div>
-          </div>
-          <div class="mt-8 flex justify-end space-x-4">
-            <button @click="showStaffModal = false" type="button" class="bg-gray-200 px-6 py-2 rounded-lg font-semibold hover:bg-gray-300">Hủy</button>
-            <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-blue-700">Lưu</button>
-          </div>
-        </form>
-      </div>
+    <div v-if="showStaffModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm flex items-center justify-center z-50 p-4 transition-opacity duration-300">
+        <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
+            <h2 class="text-2xl font-bold text-slate-800 mb-6">{{ editingStaff ? 'Chỉnh sửa Nhân viên' : 'Thêm Admin mới' }}</h2>
+            <form @submit.prevent="saveStaff">
+                <div class="space-y-5">
+                    <div>
+                        <label class="block mb-1 text-sm font-semibold text-slate-600">Họ tên nhân viên</label>
+                        <input v-model="staffForm.hoTenNV" type="text" required class="w-full p-2.5 bg-slate-100 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"/>
+                    </div>
+                    <div>
+                        <label class="block mb-1 text-sm font-semibold text-slate-600">Chức vụ</label>
+                        <input v-model="staffForm.chucVu" type="text" required class="w-full p-2.5 bg-slate-100 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"/>
+                    </div>
+                    <div v-if="!editingStaff">
+                        <label class="block mb-1 text-sm font-semibold text-slate-600">Email</label>
+                        <input v-model="staffForm.email" type="email" :required="!editingStaff" class="w-full p-2.5 bg-slate-100 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"/>
+                    </div>
+                    <div v-if="!editingStaff">
+                        <label class="block mb-1 text-sm font-semibold text-slate-600">Mật khẩu</label>
+                        <input v-model="staffForm.password" type="password" :required="!editingStaff" class="w-full p-2.5 bg-slate-100 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"/>
+                    </div>
+                    <div>
+                        <label class="block mb-1 text-sm font-semibold text-slate-600">Địa chỉ</label>
+                        <input v-model="staffForm.diaChi" type="text" class="w-full p-2.5 bg-slate-100 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"/>
+                    </div>
+                    <div>
+                        <label class="block mb-1 text-sm font-semibold text-slate-600">Số điện thoại</label>
+                        <input v-model="staffForm.soDienThoai" type="text" class="w-full p-2.5 bg-slate-100 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"/>
+                    </div>
+                </div>
+                <div class="mt-8 flex justify-end space-x-4">
+                    <button @click="showStaffModal = false" type="button" class="bg-slate-200 px-6 py-2.5 rounded-lg font-semibold text-slate-700 hover:bg-slate-300 transition">Hủy</button>
+                    <button type="submit" class="bg-indigo-600 text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-indigo-700 transition shadow">Lưu</button>
+                </div>
+            </form>
+        </div>
     </div>
   </div>
 </template>

@@ -94,6 +94,10 @@ const routes = [
 
 const router = createRouter({
     history: createWebHistory(),
+    scrollBehavior(to, from, savedPosition) {
+        // Luôn cuộn lên đầu trang khi điều hướng
+        return { top: 0 }
+    },    
     routes,
 })
 

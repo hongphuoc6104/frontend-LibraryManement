@@ -114,7 +114,7 @@
         <p class="text-lg text-gray-700 leading-relaxed mb-8">
           Với hàng ngàn đầu sách từ mọi thể loại, chúng tôi mang đến cho bạn một thế giới tri thức vô tận ngay trong tầm tay. Dù bạn yêu thích tiểu thuyết, khoa học, lịch sử hay tự phát triển, thư viện của chúng tôi luôn có điều gì đó dành cho bạn.
         </p>
-        <router-link to="/categories" class="inline-flex items-center bg-gray-800 text-white px-8 py-3 rounded-full font-semibold hover:bg-gray-900 transition-all duration-300 shadow-md">
+        <router-link to="/books" class="inline-flex items-center bg-gray-800 text-white px-8 py-3 rounded-full font-semibold hover:bg-gray-900 transition-all duration-300 shadow-md">
           Xem Thể Loại
           <svg class="ml-2 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
         </router-link>
