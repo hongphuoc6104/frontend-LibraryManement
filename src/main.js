@@ -1,19 +1,30 @@
+// <!-- /**
+//  * ---------------------------------------------------------------------------------------------
+//  * Tên dự án: Website Quản lý Thư viện Trực tuyến
+//  * ---------------------------------------------------------------------------------------------
+//  * Mô tả: File khai báo và sử dụng.
+//  *
+//  * @author  Nguyễn Nhật Hồng Phước
+//  * @mssv    B2308385
+//  * @date    27/07/2025
+//  *
+//  * @copyright (c) 2025 Nguyễn Nhật Hồng Phước. All rights reserved.
+//  * ---------------------------------------------------------------------------------------------
+//  */ -->
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 
-import './assets/style.css' // Sửa lại đường dẫn cho đúng
+import './assets/style.css' 
 import App from './App.vue'
 
 import router from '../router'
-import { useUserStore } from './stores/userStore' // 👈 Thêm import này
+import { useUserStore } from './stores/userStore' 
 
 const app = createApp(App)
 const pinia = createPinia()
 
-app.use(pinia) // 👈 Luôn use(pinia) trước khi dùng store
+app.use(pinia) 
 
-// 👇 THÊM ĐOẠN CODE QUAN TRỌNG NÀY VÀO
-// Đoạn code này sẽ chạy một lần duy nhất khi ứng dụng khởi động
 const userStore = useUserStore()
 userStore.initFromStorage()
 

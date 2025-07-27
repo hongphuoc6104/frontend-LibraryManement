@@ -1,3 +1,16 @@
+<!-- /**
+ * ---------------------------------------------------------------------------------------------
+ * Tên dự án: Website Quản lý Thư viện Trực tuyến
+ * ---------------------------------------------------------------------------------------------
+ * Mô tả: File Home xây dựng các hiệu ứng đẹp mắt và các section giới thiệu.
+ *
+ * @author  Nguyễn Nhật Hồng Phước
+ * @mssv    B2308385
+ * @date    27/07/2025
+ *
+ * @copyright (c) 2025 Nguyễn Nhật Hồng Phước. All rights reserved.
+ * ---------------------------------------------------------------------------------------------
+ */ -->
 <template>
   <div class="bg-gray-50 font-sans antialiased">
     <section class="relative h-[80vh] min-h-[600px] flex items-center justify-center text-white overflow-hidden">
@@ -83,10 +96,10 @@
                 "Đọc sách không chỉ là học hỏi, mà còn là một cuộc phiêu lưu vô tận vào thế giới của tri thức và trí tưởng tượng."
             </p>
             <p class="text-xl font-semibold text-gray-300 delay-100">
-                — Hồng Phước
+                — Minh Trung
             </p>
             <img 
-                src="https://scontent.fvca1-1.fna.fbcdn.net/v/t39.30808-6/497741595_2193114361140150_3216877542729061027_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=BtMR3pmd4KcQ7kNvwGoNaFh&_nc_oc=AdnjcyFGP8LdxLJjQ3Kx8HnVpxIPdGrVuOEYh65MZHW8Hibo9f_B6ujUkWDub2f4hxkvQmjesfLk_UWQFP4GSpQK&_nc_zt=23&_nc_ht=scontent.fvca1-1.fna&_nc_gid=Ks5srIMLPjTeTy1wUJ9esQ&oh=00_AfSPpmS05ANDx8x6ACbfDQKUyu_1PfPZXaCErosodeJp4Q&oe=6882CFEA" 
+                src="https://scontent.fvca1-4.fna.fbcdn.net/v/t39.30808-6/464931799_8700533080007023_5965225201785038525_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeG-zwbOzalPB7YSj93DtwXqe5JKkMxSgjJ7kkqQzFKCMgBLBqAaAxx6MA3V8OgL9u1dkVmHZDPbq2KTLru2kvAy&_nc_ohc=OO_f3QF3W9AQ7kNvwE0nBOq&_nc_oc=AdmAB4l0CzDJ79bWPERLtQfqdzsTEyIcyLWwlYp_julWF3jA5KYdjMXwFlj2vybN9uVWJV_v7f9sCsSGaWveQymz&_nc_zt=23&_nc_ht=scontent.fvca1-4.fna&_nc_gid=x2jgPYgmrplTVA940MTGBg&oh=00_AfSN-bfgwQBq31A-Ufw1snYiBPVSkeTMtUzt0kuYXQBGZg&oe=688C0ED2" 
                 alt="Người đang đọc sách" 
                 class="w-32 h-32 rounded-full mx-auto mt-10 object-cover shadow-xl border-4 border-gray-600 delay-200"
             >
@@ -234,7 +247,7 @@ onMounted(() => {
 </script>
 
 <style>
-/* Custom animations for the Hero section and bounce button (these remain as they are always visible) */
+
 @keyframes fadeInDown {
   from { opacity: 0; transform: translateY(-20px); }
   to { opacity: 1; transform: translateY(0); }
@@ -253,7 +266,4 @@ onMounted(() => {
 .animate-fade-in-down { animation: fadeInDown 0.8s ease-out forwards; }
 .animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
 .animate-bounce-subtle { animation: bounceSubtle 1.5s infinite ease-in-out; }
-
-/* Remove previous @keyframes for fade-in-left/right as Tailwind transitions handle them now */
-/* No custom CSS needed for on-scroll reveal sections anymore. Tailwind handles it. */
 </style>

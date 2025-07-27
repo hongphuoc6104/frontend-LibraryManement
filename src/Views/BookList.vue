@@ -1,3 +1,16 @@
+<!-- /**
+ * ---------------------------------------------------------------------------------------------
+ * Tên dự án: Website Quản lý Thư viện Trực tuyến
+ * ---------------------------------------------------------------------------------------------
+ * Mô tả: File xây dựng danh sách sản phẩm.
+ *
+ * @author  Nguyễn Nhật Hồng Phước
+ * @mssv    B2308385
+ * @date    27/07/2025
+ *
+ * @copyright (c) 2025 Nguyễn Nhật Hồng Phước. All rights reserved.
+ * ---------------------------------------------------------------------------------------------
+ */ -->
 <template>
   <div class="max-w-7xl mx-auto px-4 py-8 md:py-12 animate-fade-in-up">
     <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-2 text-center relative">
@@ -50,35 +63,34 @@
 
   </div>
 </template>
-  
+ 
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import BookCard from '../components/BookCard.vue';
 
 import apiClient from '../services/apiService'
-import { useRoute } from 'vue-router'; // Import useRoute to get query params
+import { useRoute } from 'vue-router'; 
 
 const books = ref([]);
 const search = ref('');
-const isLoading = ref(true); // Add loading state
+const isLoading = ref(true); 
 
-const route = useRoute(); // Initialize useRoute
+const route = useRoute(); 
 
 // --- DATA FETCHING ---
 async function fetchBooks() {
-  isLoading.value = true; // Set loading to true before fetching
+  isLoading.value = true; 
   try {
     const res = await apiClient.get('/books');
     books.value = res.data;
   } catch (err) {
     console.error('Lỗi khi tải sách:', err);
   } finally {
-    isLoading.value = false; // Set loading to false after fetching (success or failure)
+    isLoading.value = false; 
   }
 }
 
 onMounted(() => {
-  // Check if there's a search query from the URL (e.g., from Home page search)
   if (route.query.q) {
     search.value = route.query.q;
   }
@@ -99,7 +111,6 @@ const filteredBooks = computed(() => {
 </script>
 
 <style>
-/* Base animations (defined in Home.vue, can be moved to a shared CSS file if preferred) */
 @keyframes fadeInUp {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
@@ -108,20 +119,15 @@ const filteredBooks = computed(() => {
   animation: fadeInUp 0.5s ease-out forwards;
 }
 
-/* Staggered animation for BookCard items */
+
 @keyframes itemFadeIn {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
 .animate-item-fade-in {
-  opacity: 0; /* Start hidden */
+  opacity: 0; 
   animation: itemFadeIn 0.6s ease-out forwards;
 }
 
-/* No specific animation for animate-staggered-fade-in, it's a container class for delay */
-/* This class ensures that individual items get their animation-delay property */
-.animate-staggered-fade-in {
-  /* This ensures the animation is applied but delayed on each child */
-}
 </style>

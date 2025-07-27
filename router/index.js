@@ -1,5 +1,18 @@
+// /**
+//  * ---------------------------------------------------------------------------------------------
+//  * Tên dự án: Website Quản lý Thư viện Trực tuyến
+//  * ---------------------------------------------------------------------------------------------
+//  * Mô tả: File này chứa router xử lý điều hướng trang.
+//  *
+//  * @author  Nguyễn Nhật Hồng Phước
+//  * @mssv    B2308385
+//  * @date    27/07/2025
+//  *
+//  * @copyright (c) 2025 Nguyễn Nhật Hồng Phước. All rights reserved.
+//  * ---------------------------------------------------------------------------------------------
+//  */
 import { createRouter, createWebHistory } from "vue-router";
-import { useUserStore } from "../src/stores/userStore"; 
+
 
 // import duong dan trang web 
 import Home from "../src/Views/Home.vue";
@@ -8,7 +21,6 @@ import Register from "../src/Views/Register.vue";
 import Login from "../src/Views/Login.vue";
 
 // import GenreBookList from "../src/Views/GenreBookList.vue";
-
 import BookList from "../src/Views/BookList.vue"
 import BookDetail from "../src/Views/BookDetail.vue";
 import BorrowedBooks from "../src/Views/BorrowedBooks.vue";
@@ -30,9 +42,7 @@ const routes = [
         component: MainLayout,
         children:[
             { path: '', component: Home, name: 'Home' },
-            // 👇 Sửa lại: Bỏ dấu / ở đầu
-            // { path: 'genres/:slug', component: GenreBookList, name: 'GenreBooks' },
-            { path: 'books', component: BookList, name: 'BookList' , meta: { requiresAuth: true }},
+            { path: 'books', component: BookList, name: 'BookList'},
             { path: 'books/masach/:maSach', component: BookDetail, name: 'BookDetail', meta: { requiresAuth: true } },
             { path: 'borrowed', component: BorrowedBooks, name: 'BorrowedBooks', meta: { requiresAuth: true } }
         ],
@@ -49,10 +59,9 @@ const routes = [
     {
         path: '/admin',
         component: AdminLayout,
-        meta: { requiresAuth: true, requiresAdmin: true }, // Thêm meta để kiểm tra quyền admin
+        meta: { requiresAuth: true, requiresAdmin: true }, 
         children: [
             {
-                // Redirect /admin về trang dashboard
                 path: '',
                 redirect: '/admin/dashboard',
             },
@@ -76,12 +85,6 @@ const routes = [
                 name: 'AdminManageBorrow',
                 component: ManageBorrow,
             }
-            // {
-            //     path: 'manage-books',
-            //     name: 'AdminManageBooks',
-            //     component: ManageBooks,
-            // },
-            // ... các route quản lý khác sẽ thêm vào đây
         ]
     },
 
@@ -101,10 +104,8 @@ const router = createRouter({
     routes,
 })
 
-// file: router/index.js
 
 router.beforeEach((to, from, next) => {
-    // Đọc trực tiếp từ localStorage để kiểm tra nhanh và chính xác nhất
     const token = localStorage.getItem('token');
     const role = localStorage.getItem('role');
 

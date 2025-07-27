@@ -1,3 +1,17 @@
+<!-- /**
+ * ---------------------------------------------------------------------------------------------
+ * Tên dự án: Website Quản lý Thư viện Trực tuyến
+ * ---------------------------------------------------------------------------------------------
+ * Mô tả: File component này chứa Header bao gồm trang Home, BookList, BookDetail.
+ *
+ * @author  Nguyễn Nhật Hồng Phước
+ * @mssv    B2308385
+ * @date    27/07/2025
+ *
+ * @copyright (c) 2025 Nguyễn Nhật Hồng Phước. All rights reserved.
+ * ---------------------------------------------------------------------------------------------
+ */ -->
+
 <template>
   <header class="sticky top-0 z-50 w-full bg-gray-900/90 backdrop-blur-md shadow-lg text-slate-200 border-b border-gray-700 animate-fade-in-down-header">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -124,7 +138,6 @@ onUnmounted(() => {
 </script>
 
 <style>
-/* Custom animations */
 @keyframes fadeInDownHeader {
   from {
     opacity: 0;
@@ -140,12 +153,12 @@ onUnmounted(() => {
   animation: fadeInDownHeader 0.6s ease-out forwards;
 }
 
-/* Text glow effect for "Thư Viện Online" */
+
 .text-glow {
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.4), 0 0 10px rgba(255, 255, 255, 0.2);
 }
 
-/* Underline effect for nav links */
+
 .nav-link::after {
   content: '';
   position: absolute;
@@ -153,7 +166,7 @@ onUnmounted(() => {
   height: 2px;
   bottom: -4px;
   left: 0;
-  background-color: #ffffff; /* White underline */
+  background-color: #ffffff; 
   transition: width 0.3s ease-out;
 }
 

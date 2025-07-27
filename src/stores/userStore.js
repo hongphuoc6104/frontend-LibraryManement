@@ -1,3 +1,17 @@
+// <!-- /**
+//  * ---------------------------------------------------------------------------------------------
+//  * Tên dự án: Website Quản lý Thư viện Trực tuyến
+//  * ---------------------------------------------------------------------------------------------
+//  * Mô tả: File Pinia quản lí thông tin người dùng toàn cục.
+//  *
+//  * @author  Nguyễn Nhật Hồng Phước
+//  * @mssv    B2308385
+//  * @date    27/07/2025
+//  *
+//  * @copyright (c) 2025 Nguyễn Nhật Hồng Phước. All rights reserved.
+//  * ---------------------------------------------------------------------------------------------
+//  */ -->
+
 import { defineStore } from "pinia";
 
 export const useUserStore = defineStore('user', {
@@ -10,16 +24,13 @@ export const useUserStore = defineStore('user', {
     }),
 
     actions: {
-        // PHIÊN BẢN SỬA LỖI HOÀN CHỈNH
         login(data) {
-            // Gán giá trị cho state từ object `data` (là res.data)
             this.token = data.token;
             this.role = data.role;
-            this.userId = data.userInfo.userId; // Lấy ID từ object con userInfo
+            this.userId = data.userInfo.userId; 
             this.username = data.userInfo.hoTenNV || data.userInfo.fullName || 'Người dùng';
             this.isLoggedIn = true;
 
-            // Lưu vào localStorage từ state (đã được gán giá trị đúng)
             localStorage.setItem('token', this.token);
             localStorage.setItem('role', this.role);
             localStorage.setItem('userId', this.userId);
@@ -27,14 +38,12 @@ export const useUserStore = defineStore('user', {
         },
 
         logout() {
-            // Xóa state
             this.username = '';
             this.userId = '';
             this.token = '';
             this.role = '';
             this.isLoggedIn = false;
 
-            // Xóa toàn bộ localStorage để đảm bảo sạch sẽ
             localStorage.clear();
         },
         
@@ -44,7 +53,7 @@ export const useUserStore = defineStore('user', {
                 this.token = token;
                 this.isLoggedIn = true;
                 this.role = localStorage.getItem('role') || '';
-                this.userId = localStorage.getItem('userId') || ''; // Đọc ID từ localStorage
+                this.userId = localStorage.getItem('userId') || ''; 
                 this.username = localStorage.getItem('username') || '';
             }
         }

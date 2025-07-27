@@ -1,3 +1,16 @@
+<!-- /**
+ * ---------------------------------------------------------------------------------------------
+ * Tên dự án: Website Quản lý Thư viện Trực tuyến
+ * ---------------------------------------------------------------------------------------------
+ * Mô tả: File lịch xử mượn sách của người dùng.
+ *
+ * @author  Nguyễn Nhật Hồng Phước
+ * @mssv    B2308385
+ * @date    27/07/2025
+ *
+ * @copyright (c) 2025 Nguyễn Nhật Hồng Phước. All rights reserved.
+ * ---------------------------------------------------------------------------------------------
+ */ -->
 <template>
   <div class="max-w-6xl mx-auto px-4 py-8 md:py-12 animate-fade-in-up">
     <h1 class="text-3xl md:text-4xl font-extrabold text-gray-900 mb-2 text-center relative">
@@ -60,7 +73,7 @@ import { ref, onMounted } from 'vue'
 import apiClient from '../services/apiService'
 const defaultImg = 'https://th.bing.com/th/id/OIP.10sq7MYhXknhpLcEvDY11QHaHa?w=206&h=206&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3'
 const borrows = ref([])
-const userId = localStorage.getItem('userId') // Đảm bảo userId được lấy chính xác
+const userId = localStorage.getItem('userId') 
 
 async function fetchBorrows() {
   try {
@@ -68,14 +81,13 @@ async function fetchBorrows() {
     borrows.value = res.data
   } catch (err) {
     console.error('Lỗi khi lấy lịch sử mượn:', err)
-    // Có thể thêm thông báo lỗi cho người dùng ở đây
   }
 }
 
 onMounted(fetchBorrows)
 
 function formatDate(dateStr) {
-  if (!dateStr) return 'N/A'; // Handle cases where dateStr might be null/undefined
+  if (!dateStr) return 'N/A'; 
   const date = new Date(dateStr)
   return date.toLocaleDateString('vi-VN', {
     day: '2-digit',
@@ -85,25 +97,21 @@ function formatDate(dateStr) {
 }
 
 function getHanStatusInfo(item) {
-  // Ưu tiên 1: Kiểm tra xem sách đã được admin duyệt trả chưa
   if (item.status === 'Đã trả') {
     const returnDateText = item.ngayThucTra ? ` ngày ${formatDate(item.ngayThucTra)}` : '';
     return { text: `Đã trả${returnDateText}`, class: 'bg-green-100 text-green-800', icon: 'M5 13l4 4L19 7', iconColor: 'text-green-600' };
   }
   
-  // Ưu tiên 2: Kiểm tra trạng thái "Đang chờ duyệt" (nếu có trong backend)
   if (item.status === 'Đang chờ duyệt') {
     return { text: 'Đang chờ duyệt', class: 'bg-blue-100 text-blue-800', icon: 'M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z', iconColor: 'text-blue-600' };
   }
 
-  // Nếu chưa trả và không phải "Đang chờ duyệt", tiếp tục logic cũ để kiểm tra hạn
   if (!item.ngayTra) {
       return { text: 'Chưa có hạn trả', class: 'bg-gray-100 text-gray-600', icon: 'M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z', iconColor: 'text-gray-500' };
   }
   
   const today = new Date();
   const traDate = new Date(item.ngayTra);
-  // Đặt giờ về 0 để so sánh chỉ theo ngày
   today.setHours(0, 0, 0, 0);
   traDate.setHours(0, 0, 0, 0);
 
